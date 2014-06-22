@@ -286,14 +286,14 @@
                             if(pos2 > -1) {
                                 var token = scanner.copy(pos, pos2 - 2).trim();
                                 if(word == 'if' || word == 'elif'){
-                                    var parts = token.split(/\s*(and|or|\(|\))\s*/g);
+                                    var parts = token.split(/\s*( and | or |\(|\))\s*/g);
                                     var cs = [];
                                     for(var i = 0; i < parts.length; i++){
                                         var p = parts[i];
                                         
                                         if(is_constant(p)){
                                             cs.push(p);
-                                        } else if(!(/and|or|\(|\)/.test(p))){
+                                        } else if(!(/ and | or |\(|\)/.test(p))){
                                             var ps = p.split(/(==|>=|<=|<|>)/);
                                             var v = '';
                                             if(ps.length > 1) {
@@ -312,9 +312,9 @@
                                                 v = parse_filter(p);
                                                 cs.push('surge.is_true(' + v + ')');
                                             }
-                                        } else if(p == 'and'){
+                                        } else if(p == ' and '){
                                             cs.push('&&');
-                                        } else if(p == 'or'){
+                                        } else if(p == ' or '){
                                             cs.push('||');
                                         } else {
                                             cs.push(p);
